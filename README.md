@@ -1,3 +1,12 @@
+---
+language: es
+tags:
+- audio
+- automatic-speech-recognition
+datasets:
+- common_voice
+---
+
 # Wav2Vec2 Spanish
 
 Spanish Wav2Vec2 model pre-trained using the Spanish portion of the Common Voice dataset.
