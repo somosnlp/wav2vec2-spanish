@@ -316,12 +316,13 @@ def main():
 
     # load audio files into numpy arrays
     vectorized_datasets = datasets.map(
-        prepare_dataset, num_proc=data_args.preprocessing_num_workers, remove_columns=datasets["train"].column_names
+        speech_file_to_array_fn, num_proc=data_args.preprocessing_num_workers, remove_columns=datasets["train"].column_names,
     )
 
     # filter audio files that are too long
     vectorized_datasets = vectorized_datasets.filter(
-        lambda data: len(data["speech"]) < int(data_args.max_duration_in_seconds * feature_extractor.sampling_rate)
+        lambda data: len(data["speech"]) < int(data_args.max_duration_in_seconds * feature_extractor.sampling_rate),
+        keep_in_memory=True,
     )
 
     def normalize(batch):
@@ -335,6 +336,9 @@ def main():
         load_from_cache_file=not data_args.overwrite_cache,
         remove_columns=vectorized_datasets["train"].column_names,
     )
+
+    # save vectorized dataset once
+    vectorized_datasets.save_to_disk(model_args.cache_dir)
 
     # pretraining is only supported for "newer" stable layer norm architecture
     # apply_spec_augment has to be True, mask_feature_prob has to be 0.0
