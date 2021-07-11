@@ -14,7 +14,7 @@ from tqdm import tqdm
 import flax
 import jax
 import jax.numpy as jnp
-import librosa
+import torchaudio
 import optax
 from flax import jax_utils, traverse_util
 from flax.training import train_state
@@ -309,9 +309,13 @@ def main():
         model_args.model_name_or_path, cache_dir=model_args.cache_dir, do_normalize=True
     )
 
-    def prepare_dataset(batch):
-        # check that all files have the correct sampling rate
-        batch["speech"], _ = librosa.load(batch[data_args.speech_file_column], sr=feature_extractor.sampling_rate)
+    resampler = torchaudio.transforms.Resample(48_000, 16_000)
+
+    # Preprocessing the datasets.
+    # We need to read the aduio files as arrays and tokenize the targets.
+    def speech_file_to_array_fn(batch):
+        speech_array, sampling_rate = torchaudio.load(batch["path"])
+        batch["speech"] = resampler(speech_array).squeeze().numpy()
         return batch
 
     # load audio files into numpy arrays
