@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 ./run_wav2vec2_pretrain_flax.py \
-    --output_dir=${MODEL_DIR} \
+    --output_dir="./first_run" \
     --num_train_epochs="5" \
     --per_device_train_batch_size="32" \
     --per_device_eval_batch_size="32" \
     --learning_rate="5e-4" \
     --weight_decay="0.01" \
     --warmup_steps="2000" \
-    --model_name_or_path=${MODEL_DIR} \
+    --model_name_or_path="./" \
     --dataset_name="common_voice" \
     --dataset_config_name="es" \
     --preprocessing_num_workers="4" \
