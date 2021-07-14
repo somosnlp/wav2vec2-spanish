@@ -1,1 +1,4 @@
 venv/
+data_cache/
+dummy/
+data_cache_dummy/
