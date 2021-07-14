@@ -40,6 +40,6 @@ The dataset is also available in the 🤗 [Datasets](https://huggingface.co/data
 
 ### Training procedure (TODO: update)
 
-The script used for training (`train.sh`) is based on [this training script](https://github.com/huggingface/transformers/blob/master/examples/research_projects/jax-projects/wav2vec2/run_wav2vec2_pretrain_flax.py) and was modified as explained in `training_script_evolution.md`.
+The script used for training (`train.sh`) is based on [this training script](https://github.com/huggingface/transformers/blob/master/examples/research_projects/jax-projects/wav2vec2/run_wav2vec2_pretrain_flax.py) and was modified as explained in `setup_modifications.md`.
 
 ### Eval results (TODO)

@@ -36,11 +36,11 @@ ValueError: Unknown split "train.100". Should be one of ['train', 'test', 'valid
 
 #### Solution
 
-Delete this line from the training script (the parameter defaults to "train"):
+Delete this line (the value of the parameter will default to 'train')
 ```
 --train_split_name="train.100" \
 ```
-To specify the split, add this other line:
+and add this one to specify the train/validation split:
 ```
 --validation_split_percentage="5" \
 ```
@@ -49,7 +49,7 @@ To specify the split, add this other line:
 
 ```
 File "./run_wav2vec2_pretrain_flax.py", line 315, in prepare_dataset
-batch["speech"], _ = librosa.load(batch[data_args.speech_file_column], r=feature_extractor.sampling_rate)
+batch["speech"], _ = librosa.load(batch[data_args.speech_file_column], sr=feature_extractor.sampling_rate)
 KeyError: 'file'
 ```
 
